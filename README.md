@@ -55,19 +55,20 @@ A lightweight CNN with **batch normalization**:
 ### (b) Transformer-based Model (Vision Transformer)
 A Vision Transformer (ViT)-like approach:
 - **Flatten** each **28×28** patch into tokens.
-- **Embed tokens** and pass them through a **ViT-like encoder** with **small patch embeddings** (e.g., **4×4 patches**).
-- **Positional encoding** might be unnecessary, but experiment with both **enabled and disabled**.
+- **Embed tokens** and pass them through a **ViT-like encoder** with **small patch embeddings** (**4×4 patches**).
 - Use a **classifier head** on the final token embeddings.
 
 ---
 
-### (c) CRDNN (CNN + RNN + DNN)
-Since **CRDNN** is more sequence-focused, it might be useful if you **flatten `recording_date` into a temporal sequence**:
+### (c) ViT + RNN + DNN (Other possible solution)
+it might be useful if you **flatten `recording_date` into a temporal sequence**:
 - **Process `density`** using **CNN layers**.
 - **Concatenate `recording_date`** as an extra feature or encode it using an **RNN** before merging with CNN output.
 - **Final classifier head** with a dense layer.
 
 ---
 
-This document serves as a guide to structuring the dataset, preprocessing strategies, and different model architectures to explore for the gas state classification task.
+## 3. Training Plot
+
+![Placeholder Image](training_plot.png)
 

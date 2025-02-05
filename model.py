@@ -3,19 +3,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class PatchEmbedding(nn.Module):
-    def __init__(self, img_size=28, patch_size=2, in_channels=2, embed_dim=64):  # 🚀 Change patch_size=2
+    def __init__(self, img_size=28, patch_size=2, in_channels=2, embed_dim=64):
         super().__init__()
-        self.num_patches = (img_size // patch_size) ** 2  # Update number of patches
+        self.num_patches = (img_size // patch_size) ** 2 
 
         self.conv = nn.Sequential(
             nn.Conv2d(in_channels, embed_dim // 2, kernel_size=3, padding=1),
             nn.BatchNorm2d(embed_dim // 2),
             nn.GELU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),  # 🚀 Add MaxPooling
+            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(embed_dim // 2, embed_dim, kernel_size=3, padding=1),
             nn.BatchNorm2d(embed_dim),
             nn.GELU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),  # 🚀 Add MaxPooling
+            nn.MaxPool2d(kernel_size=2, stride=2),
         )
 
         self.proj = nn.Conv2d(embed_dim, embed_dim, kernel_size=patch_size, stride=patch_size)
@@ -68,7 +68,6 @@ class TinyViT(nn.Module):
             ) for _ in range(num_layers)
         ])
 
-        # Output layer (single neuron, no classification token)
         self.fc_out = nn.Linear(embed_dim, num_classes)
 
     def forward(self, x):
@@ -83,9 +82,8 @@ class TinyViT(nn.Module):
         for layer in self.encoder_layers:
             x = layer(x)
 
-        # Global Average Pooling (removes CLS token need)
+        # Global Average Pooling
         x = x.mean(dim=1)  
 
-        # Output single neuron prediction
         x = self.fc_out(x)  
         return x.squeeze(1)
