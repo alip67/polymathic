@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from dataset import HDF5Dataset
 from CNN_classifier import BasicCNNClassifier
-from model import VisionTransformer, TinyViT
+from model import  TinyViT
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -175,9 +175,10 @@ def write_test_predictions(model, data_loader, device):
     predictions = []
     
     with torch.no_grad():
-        for inputs in data_loader:
-            inputs = inputs.to(device)
-            outputs = model(inputs[:, 0, :, :].unsqueeze(dim=1))
+        for batch in data_loader:
+            inputs, labels = batch
+            inputs, labels = inputs.to(device), labels.to(device).float().squeeze()
+            outputs = model(inputs[:,0,:,:].unsqueeze(dim=1))
             preds = (torch.sigmoid(outputs) > 0.5).int().cpu().numpy()
             predictions.extend(preds.flatten())
     
@@ -238,7 +239,7 @@ if __name__ == "__main__":
     val_dataset = HDF5Dataset("data/valid.hdf5")
     print("Class Distribution:", torch.bincount(torch.tensor(val_dataset.labels, dtype=torch.int).squeeze()))
 
-    test_dataset = HDF5Dataset("data/test.hdf5")
+    test_dataset = HDF5Dataset("data/test_no_labels.hdf5")
     print("Class Distribution:", torch.bincount(torch.tensor(val_dataset.labels, dtype=torch.int).squeeze()))
     
 
