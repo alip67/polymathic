@@ -17,7 +17,6 @@ logs/
 
 # Ignore dataset and large files
 local_dev/
-*.png
 *.pth
 
 # Ignore system files
