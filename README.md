@@ -1,6 +1,6 @@
 # Polymathic AI Assignment
 
-# Gas State Classification with Vision Transformers
+# Gas State Classification with Vision Transformers(ViT)
 This document serves as a guide to structuring the dataset, preprocessing strategies, and different model architectures to explore for the gas state classification task.
 
 ## Problem Breakdown & Challenges
