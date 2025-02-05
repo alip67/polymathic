@@ -70,5 +70,5 @@ it might be useful if you **flatten `recording_date` into a temporal sequence**:
 
 ## 3. Training Plot
 
-![Placeholder Image](training_plot.png)
+![Placeholder Image](./training_plot.png)
 
