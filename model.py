@@ -60,7 +60,7 @@ class TinyViT(nn.Module):
         self.encoder_layers = nn.ModuleList([
             nn.TransformerEncoderLayer(
                 d_model=embed_dim, 
-                nhead=num_heads, 
+                nhead=num_heads,
                 dim_feedforward=embed_dim * 4,
                 dropout = dropout,
                 activation="gelu", 

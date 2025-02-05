@@ -40,28 +40,14 @@ The following pipeline is implemented:
 - Implemented early stopping to halt training when validation loss stops improving.
 - Changed optimizer from `SGD` to `Adam` for better convergence and adaptive learning rates.
 
----
-
-## 2. Model Architectures
-
-<!-- ### (a) CNN-based Model (Small Convolution)
-A lightweight CNN with **batch normalization**:
-- **Input**: `(2, 28, 28)` (both channels stacked)
-- **Convolutional Layers**: 2-3 layers with **3×3 filters**, **BatchNorm**, and **ReLU activation**.
-- **Global Average Pooling** to reduce spatial dimensions.
-- **Fully Connected Layer** for binary classification.
-
---- -->
-
-### (a) Transformer-based Model (Vision Transformer)
+### 3. Transformer-based Model (Vision Transformer)
 A Vision Transformer (ViT)-like approach:
 - **Flatten** each **28×28** patch into tokens.
 - **Embed tokens** and pass them through a **ViT-like encoder** with **small patch embeddings** (**4×4 patches**).
 - Use a **classifier head** on the final token embeddings.
-
 ---
 
-<!-- ### (c) ViT + RNN + DNN (Other possible solution)
+<!-- ### (4) ViT + RNN + DNN (Other possible solution)
 it might be useful if you **flatten `recording_date` into a temporal sequence**:
 - **Process `density`** using **CNN layers**.
 - **Concatenate `recording_date`** as an extra feature or encode it using an **RNN** before merging with CNN output.
