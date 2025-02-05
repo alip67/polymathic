@@ -24,7 +24,7 @@ This document serves as a guide to structuring the dataset, preprocessing strate
 
 ## Approach & Model Selection
 
-The following pipeline is recommended:
+The following pipeline is implemented:
 
 ### 1. Data Preprocessing
 - Normalize **each channel independently**.
@@ -32,6 +32,13 @@ The following pipeline is recommended:
   - **Option 1**: Remove `recording_date` altogether (tested, it improves performance).
   - **Option 2**: Convert `recording_date` into a **one-hot encoding**  (i.e., instead of a single number per pixel, create separate channels for each possible date). [tested but it didn't worked]
   - **Option 3**: Treat `recording_date` as an **auxiliary input** rather than an image-like feature. [tested but it didn't worked]  
+
+### 2. Training Script Updates
+- Added `optimizer.zero_grad()` to clear gradients before backpropagation.
+- Added `model.eval()` to set the model to evaluation mode during validation/testing.
+- Replaced `MSELoss` with `BCEWithLogitsLoss` for proper classification loss handling.
+- Implemented early stopping to halt training when validation loss stops improving.
+- Changed optimizer from `SGD` to `Adam` for better convergence and adaptive learning rates.
 
 ---
 
@@ -63,6 +70,8 @@ it might be useful if you **flatten `recording_date` into a temporal sequence**:
 ---
 
 ## 3. Training Plot
+
+Train Loss: 0.3282 | Train Acc: 0.8579 | Val Loss: 0.2717 | Val Acc: 0.8871
 
 ![polymathic-viz](./training_plot.png)
 
